@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // Database connection pool
+const mariadb = require('mariadb');
 const pool = mariadb.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
