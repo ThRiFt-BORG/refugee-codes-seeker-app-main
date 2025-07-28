@@ -149,7 +149,7 @@ app.listen(PORT, async () => {
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
-  console.log('\n🔄 Shutting down gracefully...');
+  console.log('\n Shutting down gracefully...');
   await pool.end();
   process.exit(0);
 });
