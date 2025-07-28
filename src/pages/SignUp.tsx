@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff } from "lucide-react";
-
+import { api } from "@/utils/api";
 const SignUp = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -49,18 +49,23 @@ const SignUp = () => {
 
     setIsLoading(true);
     
-    try {
-      // TODO: Replace with your actual authentication logic
-      console.log('Sign up attempt:', formData);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      toast({
-        title: "Account created!",
-        description: "Welcome to Climate Refugees Pavilion. Please sign in to continue.",
-      });
-      
+ try {
+  // Create username from first and last name
+  const username = `${formData.firstName} ${formData.lastName}`;
+  
+  // Call the real backend API
+  const result = await api.register({
+    username: username,
+    email: formData.email,
+    password: formData.password,
+  });
+  
+  console.log('Registration successful:', result);
+  
+  toast({
+    title: "Account created!",
+    description: "Welcome to Climate Refugees Pavilion. Please sign in to continue.",
+  });
       // Redirect to sign in page
       navigate('/signin');
     } catch (error) {
